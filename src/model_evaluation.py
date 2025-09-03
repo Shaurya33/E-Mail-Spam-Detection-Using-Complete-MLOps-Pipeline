@@ -125,12 +125,14 @@ def main():
 
         metrics = evaluate_model(clf, X_test, y_test)
 
-        # with Live(save_dvc_exp=True) as live:
-        #     live.log_metric('accuracy', metrics['accuracy'])
-        #     live.log_metric('precision', metrics['precision'])
-        #     live.log_metric('recall', metrics['recall'])
-        #     live.log_metric('auc', metrics['auc'])
-        #     live.log_params(params)
+        #Experiment tracking using DVC Live 
+        with Live(save_dvc_exp=True) as live:
+            live.log_metric('accuracy', metrics['accuracy'])
+            live.log_metric('precision', metrics['precision'])
+            live.log_metric('recall', metrics['recall'])
+            live.log_metric('auc', metrics['auc'])
+            
+            live.log_params(params)
         
         save_metrics(metrics, 'reports/metrics.json')
     except Exception as e:
